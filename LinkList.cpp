@@ -85,16 +85,37 @@ void PrintList(LinkList &L){
     }
 }
 
+//倒置链表
+LinkList ReverseLinkList(LinkList &L){
+    LNode* cur = L->next; //第一个存储元素
+    L->next = NULL; //让原来的链表置为空
+    while(cur!=NULL){
+        LNode* del = NULL;
+        LNode* tmp = (LNode*)malloc(sizeof(LNode));
+        tmp->data = cur->data;
+        tmp->next = L->next;
+        L->next = tmp;
+        del = cur;
+        cur=cur->next;
+        free(del);
+    }
+    return L;
+
+}
+
 int main(){
     LinkList L;
     // L = Inserthead(L);
     L = InsertTail(L);
     PrintList(L);
     printf("\n");
-    int ret = SearchForPosition(L,1);
+    // int ret = SearchForPosition(L,1);
     // printf("%d",ret);
     // LNode* tmp = SearchForElement(L,5);
     // printf("%d",tmp->data);
-    L = InsertIntoAllocatedPosition(L,3,100);
+    // L = InsertIntoAllocatedPosition(L,3,100);
+    // PrintList(L);
+
+    L = ReverseLinkList(L);
     PrintList(L);
 }
